@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends 'loan_app/index.html' %}
+{% load static %}
+{% load tz %}
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'loan_app/index.js' %}"></script>
+</head>
+{% endblock head %}
+
+{% block header %}
+<h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ detail.username }}</h1>
+{% endblock header %}
+
+{% block content %}
+<main>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        {% if detail.lent_records %}
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Lent Information</h3>
+            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Lender details and application.</p>
+        </div>
+        <div class="mt-6 border-t border-gray-100 mb-16">
+            <dl class="divide-y divide-gray-100">
+                <div class="px-4 py-6 sm:grid sm:grid-cols-7 sm:gap-4 sm:px-0 font-semibold">
+                    <dt class="text-sm leading-6 text-gray-900 sm:col-span-1 sm:mt-0">No</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Borrower Name</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Principal</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Interest Rate</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Created At</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Due Date</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Total</dd>
+                </div>
+                {% for debt in detail.lent_records %}
+                <div class="px-4 py-6 sm:grid sm:grid-cols-7 sm:gap-4 sm:px-0">
+                    <dt class="text-sm leading-6 text-gray-900 sm:col-span-1 sm:mt-0">{{ forloop.counter }}</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.borrower.name }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.principal }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.interest_rate }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.created_at | date:"Y/m/d" }}
+                    </dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.due_date |  date:"Y/m/d" }}
+                    </dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.total_amount }}</dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+        {% endif %}
+
+        {% if detail.borrow_records %}
+        <div class="px-4 sm:px-0">
+            <h3 class="text-base font-semibold leading-7 text-gray-900">Borrow Information</h3>
+            <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Borrower details and application.</p>
+        </div>
+        <div class="mt-6 border-t border-gray-100 mb-16">
+            <dl class="divide-y divide-gray-100">
+                <div class="px-4 py-6 sm:grid sm:grid-cols-7 sm:gap-4 sm:px-0 font-semibold">
+                    <dt class="text-sm leading-6 text-gray-900 sm:col-span-1 sm:mt-0">No</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Lender Name</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Principal</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Interest Rate</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Created At</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Due Date</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">Total</dd>
+                </div>
+                {% for debt in detail.borrow_records %}
+                <div class="px-4 py-6 sm:grid sm:grid-cols-7 sm:gap-4 sm:px-0">
+                    <dt class="text-sm leading-6 text-gray-900 sm:col-span-1 sm:mt-0">{{ forloop.counter }}</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.lender.name }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.principal }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.interest_rate }}</dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.created_at | date:"Y/m/d" }}
+                    </dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.due_date | date:"Y/m/d" }}
+                    </dd>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-1 sm:mt-0">{{ debt.total_amount }}</dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+        {% endif %}
+
+        {% if not detail.lent_records and not detail.borrow_records %}
+        <p>You haven't borrowed or lent yet</p>
+        {% endif %}
+    </div>
+
+</main>
+{% endblock %}
+
+
+

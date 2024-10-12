@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'loan_app/index.html' %}
+{% load static %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'loan_app/index.js' %}"></script>
+</head>
+{% endblock head %}
+
+{% block content %}
+<main>
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <!-- Your content -->
+        <div class="w-75">
+            <ul role="list" class="divide-y divide-gray-100">
+                {% for user in user_list %}
+                <li class="flex justify-between gap-x-6 py-5">
+                    <div class="flex min-w-0 gap-x-4">
+                        <a href="{% url 'loan_app:detail' user.id %}" > <img class="h-12 w-12 flex-none rounded-full bg-gray-50"
+                                 src="{{ user.avatar }}"
+                                 alt=""></a>
+
+                        <div class="min-w-0 flex-auto">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">
+                                <a href="{% url 'loan_app:detail' user.id %}" class="get-user-detail">
+                                    {{ user.name }}
+                                </a>
+                            </p>
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+                                {{user.id}}</p>
+                        </div>
+                    </div>
+                    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                        <p class="text-sm leading-6 text-gray-900">
+                            {% if user.is_lender and user.is_borrower %}
+                            Lender/Borrower
+                            {% elif user.is_lender %}
+                            Lender
+                            {% elif user.is_borrower %}
+                            Borrower
+                            {% else %}
+                            Anonymous
+                            {% endif %}
+                        </p>
+                        <p class="mt-1 text-xs leading-5 text-gray-500">B/L
+                            <span>{{ user.total_lent }}/{{ user.total_borrowed }}</span>
+                        </p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</main>
+{% endblock %}
