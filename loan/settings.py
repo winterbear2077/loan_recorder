@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-6@mbflky4ro_r+n##7kjc
 
 HANDLER404 = 'loan_app.views.handle_404_default'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+DEBUG = bool( os.environ.get('DJANGO_DEBUG', False) )
 
 ALLOWED_HOSTS = ['*']
 
@@ -123,4 +123,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
