@@ -4,3 +4,4 @@ migrations/000*
 .idea
 .pycharm
 .git
+staticfiles/**
