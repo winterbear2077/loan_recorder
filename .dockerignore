@@ -1,0 +1,5 @@
+staticfiles/**
+data
+Dockerfile
+docker-compose.yaml
+nginx.conf

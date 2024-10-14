@@ -3,6 +3,9 @@ services:
     build: .
     volumes:
       - ./data/db.sqlite3:/app/db.sqlite3
+      - ./staticfiles:/app/staticfiles
+    environment:
+      DEBUG_MODE: 'True'
   nginx:
     image: nginx
     ports:
