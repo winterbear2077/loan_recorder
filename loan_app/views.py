@@ -14,8 +14,8 @@ from .models import User
 def index(request):
     output_filed = DecimalField(max_length=12, decimal_places=4)
     user_with_totals = User.objects.annotate(
-        total_lent=Coalesce(Sum('lender__debt_lender__principal'), 0, output_field=output_filed),
-        total_borrowed=Coalesce(Sum('borrower__debt_borrower__principal'), 0, output_field=output_filed)
+        total_borrowed=Coalesce(Sum('lender__debt_lender__principal'), 0, output_field=output_filed),
+        total_lent=Coalesce(Sum('borrower__debt_borrower__principal'), 0, output_field=output_filed)
     )
 
     return render(request, 'loan_app/user.html', {'user_list': user_with_totals})
