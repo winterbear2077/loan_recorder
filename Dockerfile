@@ -6,4 +6,4 @@ RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple \
     && ./manage.py makemigrations \
     && ./manage.py migrate \
     && pip install gunicorn
-CMD ["bash", "-c", "./manage.py collectstatic && gunicorn -b :8000 loan_recorder.wsgi"]
+CMD ["bash", "-c", "./manage.py collectstatic --no-input && gunicorn -b :8000 loan_recorder.wsgi"]
